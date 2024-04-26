@@ -11,7 +11,7 @@ import { throwIfEmpty } from 'rxjs';
 export class DynamicPageComponent {
 
   public myForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.maxLength(3)]],
+    name: ['', [Validators.required, Validators.minLength(3)]],
     favoriteGame: this.fb.array([
       ['Metal Gear', Validators.required],
       ['Death Stranding', Validators.required],
@@ -70,28 +70,15 @@ export class DynamicPageComponent {
     this.newFavorite.reset();
   }
 
-  // onSubmit(): void {
-  //   if (this.myForm.invalid) {
-  //     this.myForm.markAllAsTouched();
-  //     return;
-  //   }
-
-  //   console.log(this.myForm.value);
-  //   (this.myForm.controls['favoriteGame'] as FormArray)=this.fb.array([]);
-  //   this.myForm.reset();
-
-  // }
-
-
   onSubmit(): void {
-    // if (!this.myForm.invalid) {
-    //   this.myForm.markAllAsTouched();
-    //   return;
-    // } dio error por eso se quito
-  
-      console.log(this.myForm.value);
-      this.myForm.reset();
-    
+    if (this.myForm.invalid) {
+      this.myForm.markAllAsTouched();
+      return;
+    }
+
+    console.log(this.myForm.value);
+    this.myForm.reset();
+
   }
 
 
